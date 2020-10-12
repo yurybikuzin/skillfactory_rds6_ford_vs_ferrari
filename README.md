@@ -6,6 +6,7 @@
 * [Задача](#задача)
 * [Подготовка к запуску ноутбука](#подготовка-к-запуску-ноутбука)
 * [Запуск Jupyter](#запуск-jupyter)
+* [План:](#план)
 
 <!-- vim-markdown-toc -->
 
@@ -23,4 +24,12 @@ https://www.kaggle.com/c/sf-dl-car-classification/overview
 ```
 dev/proj/run.sh
 ```
+
+https://paperswithcode.com/sota/image-classification-on-imagenet
+
+## План:
+
+Практика 5.11
++ 2 ноутбука: single model + oleg zyablov
+
 
