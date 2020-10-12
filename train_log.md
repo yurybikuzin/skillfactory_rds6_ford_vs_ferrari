@@ -200,7 +200,13 @@ Epoch 4/20
 Epoch 5/20
 364/364 [==============================] - 610s 2s/step - loss: 0.1240 - accuracy: 0.9579 - val_loss: 0.1201 - val_accuracy: 0.9697
 Epoch 6/20
-309/364 [========================>.....] - ETA: 1:26 - loss: 0.1058 - accuracy: 0.9657
+364/364 [==============================] - 619s 2s/step - loss: 0.1076 - accuracy: 0.9652 - val_loss: 0.1156 - val_accuracy: 0.9694
+3331.5 secs, validation accuracy = 0.969409
+Save aug-X-640x480-step100.h5 . . .
+Copy aug-X-640x480-step100.h5 to gs://yurybikuzin/car-classification/models/aug-X-640x480-step100.h5 . . .
+Save aug-X-640x480.h5 . . .
+Copy aug-X-640x480.h5 to gs://yurybikuzin/car-classification/models/aug-X-640x480.h5 . . .
+Model based on aug-X-640x480 is ready
 ```
 
 ## 42-GPU
