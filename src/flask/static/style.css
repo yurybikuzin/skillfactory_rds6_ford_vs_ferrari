@@ -1,0 +1,59 @@
+body {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    font-size: 15px;
+    /* margin: 0; */
+    color: #0F1111;
+    line-height: 1.35;
+}
+
+@media screen and (min-width: 640px) {
+    img {width: 640px;}
+
+}
+
+@media screen and (max-width: 640px) {
+    img {width: 100%;}
+
+}
+.predict .label {
+    display: inline-block;
+    background-color: #FFFF00;
+    padding: 0 4px;
+}
+.predict {
+    background-color: #FFFFE0;
+    margin-top: 4px;
+    padding: 4px 8px;
+    /* font-size: larger; */
+}
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input[type='submit'] {
+    background-color: rgb(0, 112, 164);
+    color: white;
+    height: 30px;
+    border-radius: 15px;
+    font-size: 16px;
+    border: none;
+    padding: 8px 20px 26px;
+    margin-bottom: 20px;
+}               
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 18px;
+    margin-block-start: 8px;
+    margin-block-end: 8px;
+}
+ul {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-inline-start: 16px;
+}
+ol {
+    padding-inline-start: 0px;
+}

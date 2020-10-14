@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- <meta charset="utf&#45;8"> -->
+    <!-- <link rel="icon" href="https://www.amazon.com/favicon.ico"> -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('root.static', filename='style.css')}}"/>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, initial-scale=1, user-scalable=no, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('root.static', filename='header.css')}}"> -->
+    <meta charset="UTF-8">
+    <title>Определение модели по фото</title>
+    <!-- <style> -->
+    <!--     @media screen and (min&#45;width: 640px) { -->
+    <!--         img {width: 640px;} -->
+    <!--  -->
+    <!--     } -->
+    <!--  -->
+    <!--     @media screen and (max&#45;width: 640px) { -->
+    <!--         img {width: 100%;} -->
+    <!--  -->
+    <!--     } -->
+    <!--     .predict .label { -->
+    <!--         display: inline&#45;block; -->
+    <!--         background&#45;color: #DDD; -->
+    <!--         padding: 0 4px; -->
+    <!--     } -->
+    <!--     .predict { -->
+    <!--         margin&#45;top: 4px; -->
+    <!--         font&#45;size: larger; -->
+    <!--     } -->
+    <!--     .submit { -->
+    <!--         display: flex; -->
+    <!--         justify&#45;content: center; -->
+    <!--         align&#45;items: center; -->
+    <!--     } -->
+    <!--     input[type='submit'] { -->
+    <!--         background&#45;color: rgb(0, 112, 164); -->
+    <!--         color: white; -->
+    <!--         height: 30px; -->
+    <!--         border&#45;radius: 15px; -->
+    <!--         font&#45;size: 16px; -->
+    <!--         border: none; -->
+    <!--         padding: 8px 20px 26px; -->
+    <!--         margin&#45;bottom: 20px; -->
+    <!--     }                -->
+    <!--     h1 { -->
+    <!--         font&#45;size: 24px; -->
+    <!--     } -->
+    <!--     h2 { -->
+    <!--         font&#45;size: 18px; -->
+    <!--         margin&#45;block&#45;start: 8px; -->
+    <!--         margin&#45;block&#45;end: 8px; -->
+    <!--     } -->
+    <!--     ul { -->
+    <!--         margin&#45;top: 4px; -->
+    <!--         margin&#45;bottom: 4px; -->
+    <!--         padding&#45;inline&#45;start: 16px; -->
+    <!--     } -->
+    <!--     ol { -->
+    <!--         padding&#45;inline&#45;start: 0px; -->
+    <!--     } -->
+    <!-- </style> -->
+</head>
+<body>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+    <h1>Определение модели авто</h1>
+
+    {% if args["method"] == "POST" %}
+        {% if args["file_size_error"] %}
+            <h1>Размер файла превышает args["max_file_size"]MB!</h1>
+        {% else %}
+            <!-- <h1>Файл успешно загружен.</h1> -->
+        {% endif %}
+    {% endif %}
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('root.display_image', filename=filename) }}">
+        </div>
+        <div class="predict">Похоже, что на фото <span class="label">{{ label }}</span></div>
+    {% endif %}
+    <h2>Загрузите фото</h2>
+    <div>Одной из следующих моделей:</div>
+    <ul>
+        <ol>Приора</ol>
+        <ol>Ford Focus</ol>
+        <ol>Самара</ol>
+        <ol>ВАЗ-2110</ol>
+        <ol>Жигули</ol>
+        <ol>Нива</ol>
+        <ol>Калина</ol>
+        <ol>ВАЗ-2109</ol>
+        <ol>Volkswagen Passat</ol>
+        <ol>ВАЗ-21099</ol>
+    </ul>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <dl>
+            <p>
+                <input type="file" name="file" autocomplete="off" accept=".png, .jpg, .jpeg, .gif" required>
+            </p>
+        </dl>
+        <div class="submit">
+            <input type="submit" value="Определить модель по фото">
+        </div>
+    </form>
+</body>
+</html>
