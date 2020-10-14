@@ -22,7 +22,7 @@ https://www.kaggle.com/c/sf-dl-car-classification/overview
 
 ## Ноутбук
 
-https://console.cloud.google.com/storage/browser/_details/yurybikuzin/car-classification/submissions/subm-daug33-320x240-fin.csv?project=stately-arc-292110
+https://colab.research.google.com/drive/1vo0bOwly_iiSJSmV8qVzFZuU6DICf3MP?authuser=2#scrollTo=JC_9Umo8fZw1
 
 ## Leaderboard
 
