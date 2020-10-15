@@ -4,7 +4,7 @@ services:
 
     proj:
         container_name: prod-${BW_PROJ_NAME}-flask
-        image: bazawinner/prod-fovsfe-flask:9
+        image: bazawinner/prod-fovsfe-flask:1
         # image: bazawinner/prod-${BW_PROJ_NAME}-flask:${BW_PROD_FLASK_VERSION}
         tty: true
 
@@ -16,4 +16,6 @@ services:
         ports:
             - ${BW_PROD_FLASK_PORT}:5000
         volumes:
-          - ./uploads:/app/static/uploads/
+          - ../src:/src
+        # entrypoint: [ 'bash' ]
+

@@ -2,5 +2,5 @@ uwsgi
 Flask
 Jinja2
 Werkzeug
+tensorflow-cpu
 keras
-tensorflow

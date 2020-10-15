@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sqlite3
 from flask import Blueprint, Flask, flash, render_template, request, jsonify, g, redirect, url_for
 
@@ -31,27 +32,10 @@ def index():
         with open(filepath, 'wb') as file:
             file.write(data)
             file.close()
-        paths_ds = tf.data.Dataset.from_tensor_slices([filepath])
-        print('paths_ds:', paths_ds)
+        label = predict_cat_of_file(filepath)
 
-        def load_and_preprocess_image(path):
-            image = tf.io.read_file(path)
-            image = tf.image.decode_jpeg(image, channels=3)
-            size = (224, 224)
-            image = tf.image.resize(image, size, preserve_aspect_ratio = True)
-            image = tf.image.resize_with_pad(image, *size)
-            image = tf.cast(image, tf.float32) / 128 - 1
-            image = tf.expand_dims(image, 0)
-            return image
-
-        load_and_preprocess_image
-        image_ds = paths_ds.map(load_and_preprocess_image)
-        print('image_ds:', image_ds)
-        predictions = model.predict(image_ds)
-        labels = np.argmax(predictions, axis = 1)
-        label = labels[0]
         print("label:", label)
-        return render_template('index.html', filename=filename, label=CAT_NAMES[label], args=args)
+        return render_template('index.html', filename=filename, label=label, args=args)
 
 @bp.route('/display/<filename>')
 def display_image(filename):
@@ -71,12 +55,6 @@ UPLOAD_FOLDER = 'static/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 from werkzeug.utils import secure_filename
 
-MODEL_FOLDER = 'model/'
-from keras.models import load_model
-import tensorflow as tf
-import numpy as np
-model = load_model(MODEL_FOLDER + 'car-classification_models_aug-NASNetMobile-224x224.h5')
-
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -93,6 +71,39 @@ CAT_NAMES = [
   'Volkswagen Passat', #8
   'ВАЗ-21099' #9
 ]
+
+MODEL_FOLDER = 'model/'
+import tensorflow as tf
+from keras.models import load_model
+import numpy as np
+model = load_model(MODEL_FOLDER + 'car-classification_models_aug-NASNetMobile-224x224.h5')
+
+def load_and_preprocess_image(path):
+    image = tf.io.read_file(path)
+    image = tf.image.decode_jpeg(image, channels=3)
+    size = (224, 224)
+    image = tf.image.resize(image, size, preserve_aspect_ratio = True)
+    image = tf.image.resize_with_pad(image, *size)
+    image = tf.cast(image, tf.float32) / 128 - 1
+    image = tf.expand_dims(image, 0)
+    return image
+
+def predict_cat_of_file(filepath):
+    with tf.device("/cpu:0"):
+        paths_ds = tf.data.Dataset.from_tensor_slices([filepath])
+        print('paths_ds:', paths_ds)
+
+        image_ds = paths_ds.map(load_and_preprocess_image)
+        print('image_ds:', image_ds)
+
+        print('model predict . . .')
+        predictions = model.predict(image_ds)
+        print('got predictions')
+        labels = np.argmax(predictions, axis = 1)
+        return CAT_NAMES[labels[0]]
+
+# predict_cat_of_file('static/uploads/niva.jpg')
+
 
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 app_root = os.environ.get('APP_ROOT')
