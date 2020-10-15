@@ -10,15 +10,17 @@ RUN pip install flask keras tensorflow
 # RUN pip install uwsgi
 
 RUN mkdir -p app/static/uploads app/templates app/model
-COPY src/flask/main.py /app/main.py
-COPY src/flask/templates/index.html /app/templates/index.html
-COPY src/flask/static/style.css /app/static
-COPY src/flask/model/car-classification_models_aug-NASNetMobile-224x224.h5 /app/model/
 WORKDIR /app
+COPY src/flask/main.py main.py
+COPY src/flask/templates/index.html templates/index.html
+COPY src/flask/static/style.css static
+COPY src/flask/model/car-classification_models_aug-NASNetMobile-224x224.h5 model/
+COPY prod/flask/run.sh .
 
-ENV FLASK_APP=main.py
-ENV FLASK_ENV=development
-CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
+# ENV FLASK_APP=main.py
+# ENV FLASK_ENV=development
+CMD [ "/app/run.sh" ]
+# CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
 
 
 #

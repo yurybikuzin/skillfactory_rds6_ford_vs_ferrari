@@ -4,18 +4,14 @@ services:
 
     proj:
         container_name: prod-${BW_PROJ_NAME}-flask
-        image: bazawinner/prod-fovsfe-flask:1
-        # image: bazawinner/prod-${BW_PROJ_NAME}-flask:${BW_PROD_FLASK_VERSION}
+        # image: bazawinner/prod-fovsfe-flask:1
+        image: bazawinner/prod-${BW_PROJ_NAME}-flask:${BW_PROD_FLASK_VERSION}
         tty: true
 
         environment:
             - TZ=Europe/Moscow
-            # - APP_ROOT=amazing
             - BW_PROJ_NAME
-            - PORT=5000
+            - PORT=3000
         ports:
-            - ${BW_PROD_FLASK_PORT}:5000
-        volumes:
-          - ../src:/src
-        # entrypoint: [ 'bash' ]
+            - ${BW_PROD_FLASK_PORT}:3000
 

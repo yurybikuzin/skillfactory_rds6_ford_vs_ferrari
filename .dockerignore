@@ -1,7 +1,5 @@
 *
-!webapp
-!prod/flask/requirements.txt
-!prod/flask/uwsgi.ini
+!prod/flask/run.sh
 !src/flask/main.py
 !src/flask/templates
 !src/flask/static
