@@ -61,11 +61,11 @@ docker rm fovsfe; docker run -it --name fovsfe -e PORT=9000 -p 42450:9000 bazawi
 
 ## Реализованные идеи
 
-Важным источником вдохновения являлся ноутбук Олега Зяблова ([part1](https://www.kaggle.com/olegzyablov/classification-using-tpu-and-tf-dataset-part-1), [part2](https://www.kaggle.com/olegzyablov/classification-using-tpu-and-tf-dataset-part-2)
+Важным источником вдохновения явился ноутбук Олега Зяблова ([part1](https://www.kaggle.com/olegzyablov/classification-using-tpu-and-tf-dataset-part-1), [part2](https://www.kaggle.com/olegzyablov/classification-using-tpu-and-tf-dataset-part-2)
 
 1. Было принято решение использовать TPU, потому что этот вариант дает самую большую скорость обучения. Метод подготовки данных для TPU был заимствован у Олега
 
-2. Были использованы аугментация данных (аугментировались как данные, использованные для обучения, так и валидационные данные для создания большего стресса у обучаемой модели), transfer learning (фиксация базовой модели и обучение только головы), 4-ступенчатый fine-tuning (с последовательным обучением 25%, 50%, 75% и 100% слоев базовой модели) и стекинг. В качестве головы была использована модель из ноутбука Олега. В качестве базовой поочередно (для стекинга) использовались следующие модели: Xception, InceptionResNetV2, InceptionV3
+2. Были использованы аугментация данных (аугментировались как данные, использованные для обучения, так и валидационные данные для создания большего стресса у обучаемой модели), transfer learning (фиксация базовой модели и обучение только головы), 4-ступенчатый fine-tuning (с последовательным обучением 25%, 50%, 75% и 100% слоев базовой модели) и стекинг. В качестве головы была использована модель из ноутбука Олега. В качестве базовой поочередно (для стекинга) использовались следующие модели: [Xception](https://keras.io/api/applications/xception/), [InceptionResNetV2](https://keras.io/api/applications/inceptionresnetv2/), [InceptionV3](https://keras.io/api/applications/inceptionv3/)
 
 3. Моделью, полученной в результате стекинга были размечены тестовые данные, что увеличило размер обучающей выборки с 15561 до 22236 изображений. Полученный датасет был использован для обучения трех моделей с применением аугментации данных(аугментировались как данные, использованные для обучения, так и валидационные данные для создания большего стресса у обучаемой модели), transfer learning'а и 4-ступенчатого fine-tuning'а. Стекинг обученных моделей был использован для подготовки финального submission'а
 
@@ -77,7 +77,7 @@ docker rm fovsfe; docker run -it --name fovsfe -e PORT=9000 -p 42450:9000 bazawi
 
 Поэтому полноценным production'ом полученный [результат](https://evening-badlands-35661.herokuapp.com/) назвать нельзя
 
-Это, скорее, МVP. В том числе и потому, что для него использовалась модель, обученная на NASNetMobile. Это было сделано из опасения, что heroku не выдержит три более тяжелые модели, памятуя об [предыдущем опыте](https://github.com/yurybikuzin/skillfactory_rds4_recommendation_challenge)
+Это, скорее, МVP. В том числе и потому, что для него использовалась модель, основанная на [NASNetMobile](https://keras.io/api/applications/nasnet/#nasnetmobile-function). Это было сделано из опасения, что heroku не выдержит три более тяжелые модели, памятуя об [предыдущем опыте](https://github.com/yurybikuzin/skillfactory_rds4_recommendation_challenge)
 
 
 
